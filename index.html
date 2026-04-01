@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linus DS Sync - Proposal</title>
+  <title>Linus Design System Automated Pipeline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -783,7 +783,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
       Internal Proposal
     </div>
-    <h1>Linus <span class="title-gradient">DS Sync</span></h1>
+    <h1>Linus <span class="title-gradient">Design System</span><br/>Automated Pipeline</h1>
     <p class="title-sub">Keeping our Figma design system and coded component library in sync, with an AI-assisted pipeline that unlocks faster, higher-fidelity feature delivery.</p>
     <div class="title-meta">
       <span class="title-meta-item">Design + Engineering</span>
@@ -1047,38 +1047,47 @@
   <div class="slide-inner">
     <span class="section-label">Getting Started</span>
     <h2>Proposed next steps</h2>
-    <p class="subtitle">Start small, prove the loop, then scale. We don't need to sync every component, just enough to validate the pipeline and show the speed gain.</p>
+    <p class="subtitle">Start small, prove the loop, then scale. Designed to minimize engineering lift while proving the pipeline end-to-end.</p>
 
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-marker timeline-marker--active">1</div>
         <div class="timeline-content">
           <h4>Proof of Concept: 3-5 Core Components</h4>
-          <p>Pick a handful of high-use components (Button, Input, Card, etc.). Extract tokens from the Linus Figma DS via MCP + native export. Build coded counterparts in Storybook. Set up Code Connect mappings. Validate the full loop.</p>
-          <span class="tag tag--now">This sprint</span>
+          <p>Extract tokens from the Linus Figma DS. Build coded counterparts in Storybook (Button, Toast, Input, Card). Validate that tokens match and variants are covered.</p>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <span class="tag tag--now" style="display:inline-flex;align-items:center;gap:4px;">~1 week (Design + AI)</span>
+            <span class="tag tag--later" style="display:inline-flex;align-items:center;gap:4px;">Eng: 1-2 hrs review</span>
+          </div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-marker timeline-marker--upcoming">2</div>
         <div class="timeline-content">
-          <h4>Vibe Code a Real Feature</h4>
-          <p>Take an upcoming feature screen and build it entirely by composing the synced DS components, AI-assisted. Measure: time to build, design fidelity, tokens matched. Compare to current workflow.</p>
-          <span class="tag tag--next">Next</span>
+          <h4>Build a Base Management Portal Page</h4>
+          <p>Compose a real page (cards, text, buttons) entirely from synced DS components, AI-assisted. Measure time to build, design fidelity, and token accuracy vs. current workflow.</p>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <span class="tag tag--now" style="display:inline-flex;align-items:center;gap:4px;">~1-2 weeks (Design + AI)</span>
+            <span class="tag tag--later" style="display:inline-flex;align-items:center;gap:4px;">Eng: review + feedback</span>
+          </div>
         </div>
       </div>
       <div class="timeline-item">
         <div class="timeline-marker timeline-marker--upcoming">3</div>
         <div class="timeline-content">
           <h4>Evaluate and Expand</h4>
-          <p>Review results with Design + Eng. If the loop works: expand component coverage, add validation against codebase requirements, and formalize the sync cadence. If not: document what broke and adjust.</p>
-          <span class="tag tag--later">After POC</span>
+          <p>Review results with Design + Eng. If the loop works: expand component coverage, validate against codebase requirements, and formalize the sync cadence.</p>
+          <div style="display:flex;gap:12px;margin-top:8px;">
+            <span class="tag tag--now" style="display:inline-flex;align-items:center;gap:4px;">~1 week (collaborative)</span>
+            <span class="tag tag--later" style="display:inline-flex;align-items:center;gap:4px;">Eng: decision input</span>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="callout" style="margin-top: 36px;">
       <span class="callout-icon">🎯</span>
-      <span class="callout-text"><strong>Success criteria for the POC:</strong> A designer can update a component in Figma, and within the same session a developer (or AI agent) can pull those changes into code with tokens matching, variants covered, and zero manual translation.</span>
+      <span class="callout-text"><strong>Engineering lift is minimal.</strong> Design and AI handle component extraction, code generation, and validation. Engineering reviews output, provides feedback, and makes integration decisions. No dedicated eng sprints required.</span>
     </div>
   </div>
   <div class="slide-logo">
