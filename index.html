@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linus DS Sync - Proposal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #033246;
+      --teal: #087DAE;
+      --teal-light: #91d6e8;
+      --sage: #c9e8a1;
+      --white: #ffffff;
+      --gray-50: #f8fafb;
+      --gray-100: #f1f5f7;
+      --gray-200: #e2e8ed;
+      --gray-300: #c8d3db;
+      --gray-400: #94a3b0;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --green-500: #22c55e;
+      --amber-500: #f59e0b;
+      --red-400: #f87171;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --gradient-brand: linear-gradient(135deg, var(--teal-light), var(--sage));
+      --gradient-hero: linear-gradient(135deg, #022234 0%, var(--navy) 40%, var(--teal) 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Slide System ─────────────────────────────── */
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 80px;
+      position: relative;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .slide-inner {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .slide-number {
+      position: absolute;
+      bottom: 32px;
+      right: 48px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0.5px;
+    }
+
+    .slide-logo {
+      position: absolute;
+      bottom: 32px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.3px;
+    }
+
+    .slide-logo svg { opacity: 0.5; }
+
+    /* ── Typography ────────────────────────────────── */
+    h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: var(--white);
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+
+    /* ── Slide 1: Title ───────────────────────────── */
+    .slide--title {
+      background: var(--gradient-hero);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide--title::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(145,214,232,0.12), transparent 70%);
+    }
+
+    .slide--title::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: 10%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,232,161,0.08), transparent 70%);
+    }
+
+    .slide--title .slide-inner { position: relative; z-index: 1; }
+
+    .title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 28px;
+    }
+
+    .title-gradient {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-sub {
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      margin-top: 20px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .title-meta {
+      display: flex;
+      gap: 28px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .title-meta-item {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .slide--title .slide-number { color: rgba(255,255,255,0.3); }
+    .slide--title .slide-logo { color: rgba(255,255,255,0.35); }
+    .slide--title .slide-logo svg { opacity: 0.35; }
+
+    /* ── Cards ─────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(3,50,70,0.06);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon--teal { background: rgba(8,125,174,0.08); color: var(--teal); }
+    .card-icon--sage { background: rgba(120,180,60,0.08); color: #5a9a20; }
+    .card-icon--navy { background: rgba(3,50,70,0.06); color: var(--navy); }
+    .card-icon--amber { background: rgba(245,158,11,0.08); color: var(--amber-500); }
+
+    .card p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    /* ── Stats Row ─────────────────────────────────── */
+    .stat-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -1px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-400);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Flow Diagrams ────────────────────────────── */
+    .flow-container {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 36px;
+      margin-top: 24px;
+    }
+
+    .flow-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .flow-desc {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+
+    /* Flow A: Original (as-is from previous work) */
+    .flow-a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .flow-node {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .flow-node--figma { background: rgba(8,125,174,0.06); color: var(--teal); border: 1px solid rgba(8,125,174,0.12); }
+    .flow-node--storybook { background: rgba(255,71,133,0.05); color: #e0457b; border: 1px solid rgba(255,71,133,0.1); }
+    .flow-node--ai { background: rgba(120,180,60,0.06); color: #4a8a10; border: 1px solid rgba(120,180,60,0.1); }
+    .flow-node--decision { background: rgba(245,158,11,0.06); color: #b57600; border: 1px solid rgba(245,158,11,0.12); }
+    .flow-node--code { background: rgba(3,50,70,0.04); color: var(--navy); border: 1px solid rgba(3,50,70,0.08); }
+
+    .flow-node-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .flow-node-text { flex: 1; }
+    .flow-node-text small { font-weight: 400; font-size: 12px; color: var(--gray-400); display: block; margin-top: 2px; }
+
+    .flow-arrow {
+      width: 2px;
+      height: 28px;
+      background: var(--gray-300);
+      position: relative;
+    }
+
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: -3px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--gray-300);
+      border-bottom: 2px solid var(--gray-300);
+      transform: rotate(45deg);
+    }
+
+    .flow-branch {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .flow-branch-item {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .flow-loop-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 6px 0;
+    }
+
+    /* Flow B: Simplified 4-step */
+    .flow-simple {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .flow-simple-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 160px;
+    }
+
+    .flow-simple-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .flow-simple-icon--figma { background: rgba(8,125,174,0.08); }
+    .flow-simple-icon--sync { background: rgba(120,180,60,0.08); }
+    .flow-simple-icon--storybook { background: rgba(255,71,133,0.05); }
+    .flow-simple-icon--code { background: rgba(3,50,70,0.05); }
+
+    .flow-simple-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .flow-simple-desc {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .flow-simple-arrow {
+      width: 40px;
+      height: 2px;
+      background: var(--gray-300);
+      position: relative;
+      flex-shrink: 0;
+      margin-top: -28px;
+    }
+
+    .flow-simple-arrow::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--gray-300);
+      border-bottom: 2px solid var(--gray-300);
+      transform: rotate(-45deg);
+    }
+
+    /* Flow C: 2026 landscape with tools */
+    .flow-modern {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-items: center;
+    }
+
+    .flow-modern-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .flow-modern-node {
+      flex: 1;
+      padding: 16px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+    }
+
+    .flow-modern-node h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .flow-modern-node p {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .flow-modern-tools {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .flow-modern-tool {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .flow-modern-tool--new {
+      background: rgba(8,125,174,0.08);
+      color: var(--teal);
+    }
+
+    .flow-modern-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .flow-modern-connector .arrow {
+      width: 2px;
+      height: 20px;
+      background: var(--gray-300);
+    }
+
+    .flow-modern-connector .label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--teal);
+      background: rgba(8,125,174,0.06);
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin: 4px 0;
+    }
+
+    /* Bidirectional */
+    .flow-modern-bidir {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 6px 0;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .flow-modern-bidir .line {
+      flex: 1;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, var(--teal-light) 0, var(--teal-light) 4px, transparent 4px, transparent 8px);
+    }
+
+    .flow-modern-bidir .label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--teal);
+      white-space: nowrap;
+    }
+
+    /* ── Diagram Tabs ─────────────────────────────── */
+    .diagram-tabs {
+      display: flex;
+      gap: 0;
+      margin-top: 32px;
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    .diagram-tab {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-400);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: inherit;
+    }
+
+    .diagram-tab:hover { color: var(--navy); }
+    .diagram-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+    .diagram-panel {
+      display: none;
+    }
+
+    .diagram-panel.active {
+      display: block;
+    }
+
+    /* ── Timeline / Next Steps ─────────────────────── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 28px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-marker {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .timeline-marker--active {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .timeline-marker--upcoming {
+      background: var(--gray-100);
+      color: var(--gray-400);
+    }
+
+    .timeline-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .timeline-content p {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+
+    .timeline-content .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    .tag--now { background: rgba(8,125,174,0.08); color: var(--teal); }
+    .tag--next { background: rgba(245,158,11,0.08); color: var(--amber-500); }
+    .tag--later { background: var(--gray-100); color: var(--gray-400); }
+
+    /* ── Callout ───────────────────────────────────── */
+    .callout {
+      background: rgba(8,125,174,0.04);
+      border: 1px solid rgba(8,125,174,0.1);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 28px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .callout-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .callout-text {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .callout-text strong { color: var(--navy); }
+
+    /* ── Comparison Table ──────────────────────────── */
+    .compare-table {
+      width: 100%;
+      margin-top: 24px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+
+    .compare-table th {
+      background: var(--navy);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    .compare-table td {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--gray-600);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table tr:nth-child(even) td { background: var(--gray-50); }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge--green { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .badge--amber { background: rgba(245,158,11,0.1); color: #d97706; }
+    .badge--red { background: rgba(248,113,113,0.1); color: #dc2626; }
+    .badge--teal { background: rgba(8,125,174,0.1); color: var(--teal); }
+
+    /* ── Print / Responsive ────────────────────────── */
+    /* ── Next Button ────────────────────────────────── */
+    .slide-next {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      background: rgba(8,125,174,0.06);
+      border: 1px solid rgba(8,125,174,0.12);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .slide-next:hover {
+      background: rgba(8,125,174,0.1);
+      border-color: rgba(8,125,174,0.2);
+    }
+
+    .slide-next svg {
+      transition: transform 0.2s;
+    }
+
+    .slide-next:hover svg {
+      transform: translateY(2px);
+    }
+
+    @media (max-width: 900px) {
+      .slide { padding: 40px 32px; }
+      h1 { font-size: 36px; }
+      h2 { font-size: 28px; }
+      .card-grid--3 { grid-template-columns: 1fr; }
+      .flow-simple { flex-direction: column; }
+      .flow-simple-arrow { width: 2px; height: 24px; margin-top: 0; transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     SLIDE 1 — Title
+     ═══════════════════════════════════════════════════ -->
+<section class="slide slide--title">
+  <div class="slide-inner">
+    <div class="title-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Internal Proposal
+    </div>
+    <h1>Linus <span class="title-gradient">DS Sync</span></h1>
+    <p class="title-sub">Keeping our Figma design system and coded component library in sync, with an AI-assisted pipeline that unlocks faster, higher-fidelity feature delivery.</p>
+    <div class="title-meta">
+      <span class="title-meta-item">Design + Engineering</span>
+      <span class="title-meta-item">April 2026</span>
+    </div>
+  </div>
+  <div class="slide-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+    Linus Health
+  </div>
+  <button class="slide-next" onclick="document.querySelectorAll('.slide')[1].scrollIntoView({behavior:'smooth'})">Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="slide-number">1 / 5</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SLIDE 2 — The Problem
+     ═══════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-inner">
+    <span class="section-label">The Gap</span>
+    <h2>Design and code drift apart over time</h2>
+    <p class="subtitle">We have a strong Figma DS and coded components, but they aren't connected. Every new feature means manual translation, and manual means drift, inconsistency, and slower delivery.</p>
+
+    <div class="card-grid card-grid--3">
+      <div class="card">
+        <div class="card-icon card-icon--teal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <h3>Manual Translation</h3>
+        <p>Developers re-implement Figma components from scratch. Every time. Design intent gets lost in translation: spacing, tokens, states.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon card-icon--amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Silent Drift</h3>
+        <p>Figma updates don't propagate to code. Code fixes don't propagate to Figma. Over time, the two diverge, and nobody notices until it's painful.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon card-icon--navy">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Slower Delivery</h3>
+        <p>AI-assisted development ("vibe coding") can't leverage the DS if it doesn't exist in code. We're leaving speed on the table.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-icon">💡</span>
+      <span class="callout-text"><strong>The opportunity:</strong> The tooling landscape has matured significantly. Figma now has native token export, Code Connect maps components to production code, and AI agents can read both. The pieces are finally here to automate this.</span>
+    </div>
+  </div>
+  <div class="slide-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+    Linus Health
+  </div>
+  <button class="slide-next" onclick="document.querySelectorAll('.slide')[2].scrollIntoView({behavior:'smooth'})">Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="slide-number">2 / 5</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SLIDE 3 — The Pipeline (3 diagram variants)
+     ═══════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-inner">
+    <span class="section-label">The Approach</span>
+    <h2>A sync pipeline, not a one-time migration</h2>
+    <p class="subtitle">Figma stays the source of truth. Tokens and component specs flow automatically to code. Fixes flow in both directions.</p>
+
+    <!-- Tabs -->
+    <div class="diagram-tabs">
+      <button class="diagram-tab active" onclick="showDiagram('simple')">Simplified</button>
+      <button class="diagram-tab" onclick="showDiagram('full')">Full Pipeline</button>
+      <button class="diagram-tab" onclick="showDiagram('modern')">2026 Stack</button>
+    </div>
+
+    <!-- Panel A: Full pipeline (from previous operational flow) -->
+    <div class="diagram-panel" id="diagram-full">
+      <div class="flow-container" style="padding: 24px; text-align: center;">
+        <img src="flow-diagram.png" alt="Full pipeline flow diagram" style="max-width: 100%; border-radius: 8px;" />
+        <div style="margin-top:12px;text-align:right;">
+          <a href="https://www.figma.com/board/8WDd4Fw0TOy5WPByYlSicv/DS-Sync?node-id=1-611&t=8oLkXYyWZwFuiApC-1" target="_blank" style="font-size:12px;color:var(--teal);text-decoration:none;font-weight:500;">View source in FigJam &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel B: Simplified 4-step -->
+    <div class="diagram-panel active" id="diagram-simple">
+      <div class="flow-container">
+        <div class="flow-title">The Core Loop</div>
+        <div class="flow-desc">Four steps. Figma is truth. Code stays in sync. AI builds on top.</div>
+        <div class="flow-simple">
+          <div class="flow-simple-step">
+            <div class="flow-simple-icon flow-simple-icon--figma">🎨</div>
+            <div class="flow-simple-name">Design</div>
+            <div class="flow-simple-desc">Components &amp; tokens<br>defined in Figma</div>
+          </div>
+          <div class="flow-simple-arrow"></div>
+          <div class="flow-simple-step">
+            <div class="flow-simple-icon flow-simple-icon--sync">🔄</div>
+            <div class="flow-simple-name">Sync</div>
+            <div class="flow-simple-desc">Tokens + specs extracted<br>automatically</div>
+          </div>
+          <div class="flow-simple-arrow"></div>
+          <div class="flow-simple-step">
+            <div class="flow-simple-icon flow-simple-icon--storybook">📚</div>
+            <div class="flow-simple-name">Library</div>
+            <div class="flow-simple-desc">Coded components<br>in Storybook</div>
+          </div>
+          <div class="flow-simple-arrow"></div>
+          <div class="flow-simple-step">
+            <div class="flow-simple-icon flow-simple-icon--code">⚡</div>
+            <div class="flow-simple-name">Build</div>
+            <div class="flow-simple-desc">AI + devs compose<br>features from DS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel C: 2026 stack with specific tools -->
+    <div class="diagram-panel" id="diagram-modern">
+      <div class="flow-container">
+        <div class="flow-title">2026 Tool Stack</div>
+        <div class="flow-desc">The ecosystem has caught up. Native Figma features + AI close the loop end-to-end</div>
+        <div class="flow-modern">
+          <div class="flow-modern-row">
+            <div class="flow-modern-node" style="border-color: rgba(8,125,174,0.2); background: rgba(8,125,174,0.02);">
+              <h4>🎨 Figma Design System</h4>
+              <p>Components, variants, and design tokens as Variables</p>
+              <div class="flow-modern-tools">
+                <span class="flow-modern-tool">Variables</span>
+                <span class="flow-modern-tool flow-modern-tool--new">Native DTCG Export</span>
+                <span class="flow-modern-tool flow-modern-tool--new">Code Connect</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-modern-connector">
+            <div class="arrow"></div>
+            <span class="label">MCP + Code Connect</span>
+            <div class="arrow"></div>
+          </div>
+
+          <div class="flow-modern-row">
+            <div class="flow-modern-node">
+              <h4>🤖 AI Sync Layer</h4>
+              <p>Claude reads Figma via MCP, generates/updates coded components with DS context</p>
+              <div class="flow-modern-tools">
+                <span class="flow-modern-tool flow-modern-tool--new">Figma MCP Server</span>
+                <span class="flow-modern-tool">Claude Code</span>
+                <span class="flow-modern-tool">Style Dictionary</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-modern-connector">
+            <div class="arrow"></div>
+            <span class="label">Generate + Validate</span>
+            <div class="arrow"></div>
+          </div>
+
+          <div class="flow-modern-row">
+            <div class="flow-modern-node" style="border-color: rgba(255,71,133,0.15); background: rgba(255,71,133,0.02);">
+              <h4>📚 Storybook Library</h4>
+              <p>Living component docs. Every Figma component has a coded, testable counterpart</p>
+              <div class="flow-modern-tools">
+                <span class="flow-modern-tool">Storybook 8</span>
+                <span class="flow-modern-tool flow-modern-tool--new">Visual QA</span>
+                <span class="flow-modern-tool flow-modern-tool--new">Storybook Connect</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-modern-connector">
+            <div class="arrow"></div>
+            <span class="label">Import &amp; Compose</span>
+            <div class="arrow"></div>
+          </div>
+
+          <div class="flow-modern-row">
+            <div class="flow-modern-node" style="border-color: rgba(120,180,60,0.15); background: rgba(120,180,60,0.02);">
+              <h4>⚡ Feature Development</h4>
+              <p>AI agents and devs build features by composing DS components. Fast, consistent, on-brand</p>
+              <div class="flow-modern-tools">
+                <span class="flow-modern-tool">Vibe Coding</span>
+                <span class="flow-modern-tool">Component Composition</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-modern-bidir">
+            <div class="line"></div>
+            <span class="label">↻ New patterns feed back to Figma</span>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+    Linus Health
+  </div>
+  <button class="slide-next" onclick="document.querySelectorAll('.slide')[3].scrollIntoView({behavior:'smooth'})">Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="slide-number">3 / 5</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SLIDE 4 — What's Now Possible
+     ═══════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-inner">
+    <span class="section-label">What's Changed</span>
+    <h2>What we can do now that we couldn't before</h2>
+    <p class="subtitle">The tools have caught up. Things that required custom scripts or manual work now have native, supported paths.</p>
+
+    <div class="card-grid card-grid--2" style="margin-top: 36px;">
+      <div class="card">
+        <div class="card-icon card-icon--teal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M12 3v9l6 3"/></svg>
+        </div>
+        <h3>Figma exports tokens natively</h3>
+        <p>Design tokens (colors, spacing, typography) can be exported directly from Figma as a standard format. No plugins or custom extraction scripts needed.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon card-icon--sage">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h3>Components can be linked to code</h3>
+        <p>A Figma component can be formally mapped to its coded counterpart. Everyone (designers, developers, and AI) knows exactly what maps to what.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon card-icon--navy">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93"/><path d="M8 6a4 4 0 0 1 8 0"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 14v3"/><path d="M12 14v3"/><path d="M17 14v3"/></svg>
+        </div>
+        <h3>AI can read the design system directly</h3>
+        <p>An AI agent can pull tokens, specs, and component mappings straight from Figma and generate code using the actual DS components, not approximations.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon card-icon--amber">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Components can be validated against requirements</h3>
+        <p>A Storybook component built from Figma can be checked against the existing codebase, framework constraints, and integration requirements, before it ever ships.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+    Linus Health
+  </div>
+  <button class="slide-next" onclick="document.querySelectorAll('.slide')[4].scrollIntoView({behavior:'smooth'})">Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="slide-number">4 / 5</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SLIDE 5 — Next Steps
+     ═══════════════════════════════════════════════════ -->
+<section class="slide">
+  <div class="slide-inner">
+    <span class="section-label">Getting Started</span>
+    <h2>Proposed next steps</h2>
+    <p class="subtitle">Start small, prove the loop, then scale. We don't need to sync every component, just enough to validate the pipeline and show the speed gain.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker timeline-marker--active">1</div>
+        <div class="timeline-content">
+          <h4>Proof of Concept: 3-5 Core Components</h4>
+          <p>Pick a handful of high-use components (Button, Input, Card, etc.). Extract tokens from the Linus Figma DS via MCP + native export. Build coded counterparts in Storybook. Set up Code Connect mappings. Validate the full loop.</p>
+          <span class="tag tag--now">This sprint</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker timeline-marker--upcoming">2</div>
+        <div class="timeline-content">
+          <h4>Vibe Code a Real Feature</h4>
+          <p>Take an upcoming feature screen and build it entirely by composing the synced DS components, AI-assisted. Measure: time to build, design fidelity, tokens matched. Compare to current workflow.</p>
+          <span class="tag tag--next">Next</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-marker timeline-marker--upcoming">3</div>
+        <div class="timeline-content">
+          <h4>Evaluate and Expand</h4>
+          <p>Review results with Design + Eng. If the loop works: expand component coverage, add validation against codebase requirements, and formalize the sync cadence. If not: document what broke and adjust.</p>
+          <span class="tag tag--later">After POC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 36px;">
+      <span class="callout-icon">🎯</span>
+      <span class="callout-text"><strong>Success criteria for the POC:</strong> A designer can update a component in Figma, and within the same session a developer (or AI agent) can pull those changes into code with tokens matching, variants covered, and zero manual translation.</span>
+    </div>
+  </div>
+  <div class="slide-logo">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+    Linus Health
+  </div>
+  <div class="slide-number">5 / 5</div>
+</section>
+
+<script>
+  function showDiagram(id) {
+    // Update tabs
+    document.querySelectorAll('.diagram-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    // Update panels
+    document.querySelectorAll('.diagram-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('diagram-' + id).classList.add('active');
+  }
+</script>
+
+<!-- Password Gate -->
+<div id="pw-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:var(--gradient-hero);display:flex;align-items:center;justify-content:center;z-index:9999;">
+  <div style="text-align:center;">
+    <div style="margin-bottom:24px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 2a10 10 0 0 0-7.38 16.75"/><circle cx="12" cy="12" r="3"/></svg>
+      <span style="font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.3px;">Linus Health</span>
+    </div>
+    <h2 style="font-family:Inter,sans-serif;font-size:28px;font-weight:700;color:white;margin-bottom:20px;">Enter password to view</h2>
+    <form onsubmit="event.preventDefault();if(document.getElementById('pw-input').value==='LinusDS'){document.getElementById('pw-gate').style.display='none';}else{document.getElementById('pw-err').style.display='block';}">
+      <input id="pw-input" type="password" placeholder="Password" autofocus style="font-family:Inter,sans-serif;font-size:16px;padding:12px 20px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;background:rgba(255,255,255,0.08);color:white;outline:none;width:260px;text-align:center;" />
+      <br/>
+      <button type="submit" style="font-family:Inter,sans-serif;margin-top:12px;padding:10px 32px;font-size:14px;font-weight:600;color:var(--navy);background:var(--gradient-brand);border:none;border-radius:8px;cursor:pointer;">View Slides</button>
+      <p id="pw-err" style="display:none;font-family:Inter,sans-serif;margin-top:12px;font-size:13px;color:#f87171;">Incorrect password</p>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
